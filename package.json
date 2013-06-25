@@ -7,6 +7,10 @@
   "bin": {
     "node-dependencies": "./bin/node-dependencies"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dpatti/node-dependencies.git"
+  },
   "keywords": ["dependency", "dependencies", "modules", "npm"],
   "dependencies": {
     "async":      "0.2.9",
