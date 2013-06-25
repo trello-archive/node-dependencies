@@ -1,4 +1,6 @@
 all: build
 
 build:
-	cat dependencies.coffee | coffee -cs > bin/node-dependencies
+	echo "#!/usr/bin/env node" > bin/node-dependencies
+	cat dependencies.coffee | coffee -cs >> bin/node-dependencies
+	chmod +x bin/node-dependencies
