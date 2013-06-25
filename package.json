@@ -1,10 +1,21 @@
 {
-  "name": "dependencies",
-  "version": "0.0.0",
+  "name": "node-dependencies",
+  "preferGlobal": true,
+  "version": "0.1.0",
+  "author": "Doug Patti <douglas.patti@gmail.com>",
+  "description": "Check out-of-date dependencies for your Node.js app",
+  "bin": {
+    "node-dependencies": "./bin/node-dependencies"
+  },
+  "keywords": ["dependency", "dependencies", "modules", "npm"],
   "dependencies": {
     "async":      "v0.2.2",
     "npm":        "1.3.1",
     "optimist":   "0.6.0",
     "underscore": "1.4.4"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8"
   }
 }
