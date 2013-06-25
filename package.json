@@ -1,0 +1,10 @@
+{
+  "name": "dependencies",
+  "version": "0.0.0",
+  "dependencies": {
+    "async":      "v0.2.2",
+    "npm":        "1.3.1",
+    "optimist":   "0.6.0",
+    "underscore": "1.4.4"
+  }
+}
