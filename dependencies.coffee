@@ -7,6 +7,7 @@ path  = require 'path'
 opts = require('optimist')
         .describe('sort', 'Order to print (alpha, urgency)')
         .describe('homepage', 'Print the homepage url with each library')
+        .describe('pre', 'Check packages with non-numeric patch values')
         .argv
 
 ### Stuff
@@ -116,6 +117,7 @@ class Package
   add_version: (store, number, value) ->
     [first, rest...] = number.split('.')
     return value unless first
+    return store if not opts.pre and /\D/.test(first)
     store[first] = @add_version store[first] ? {}, rest.join('.'), value
     return store
 

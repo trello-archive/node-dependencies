@@ -43,3 +43,4 @@ Check out-of-date dependencies for your Node.js app
 
 * `--sort`: Sort with either `alpha` or `urgency`
 * `--homepage`: Print the homepage url with each library
+* `--pre`: Check packages with non-numeric patch values
