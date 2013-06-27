@@ -4,11 +4,17 @@ fs    = require 'fs'
 npm   = require 'npm'
 path  = require 'path'
 
-opts = require('optimist')
-        .describe('sort', 'Order to print (alpha, urgency)')
-        .describe('homepage', 'Print the homepage url with each library')
-        .describe('pre', 'Check packages with non-numeric patch values')
-        .argv
+optimist = require('optimist')
+            .describe('sort', 'Order to print (alpha, urgency)')
+            .describe('homepage', 'Print the homepage url with each library')
+            .describe('pre', 'Check packages with non-numeric patch values')
+            .alias('h', 'help')
+
+opts = optimist.argv
+
+if opts.help
+  optimist.showHelp()
+  process.exit(0)
 
 ### Stuff
 # local revisions
