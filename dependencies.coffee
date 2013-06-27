@@ -4,8 +4,9 @@ fs    = require 'fs'
 npm   = require 'npm'
 path  = require 'path'
 
-argv = require('optimist')
+opts = require('optimist')
         .describe('sort', 'Order to print (alpha, urgency)')
+        .describe('homepage', 'Print the homepage url with each library')
         .argv
 
 ### Stuff
@@ -46,7 +47,7 @@ class Dependencies
               PackageStatus.error(name, err)
               return next()
             
-            if argv.sort
+            if opts.sort
               next(null, status)
             else
               status?.print()
@@ -57,7 +58,7 @@ class Dependencies
         _.chain(statuses)
           .compact()
           .sortBy (s) ->
-            if argv.sort == 'alpha'
+            if opts.sort == 'alpha'
               s.name
             else
               _.values(PackageStatus.FLAG).indexOf(s.status_color(s.diff(s.local, s.remote)))
@@ -72,7 +73,7 @@ class Package
   status: (next) ->
     # Entry point
     @fetch_information (err, {local, remote}={}) =>
-      next err, new PackageStatus(@name, local, remote)
+      next err, new PackageStatus(this, local, remote)
 
   fetch_information: (next) ->
     async.auto
@@ -106,6 +107,7 @@ class Package
 
   parse_manifest: (manifest, next) =>
     latest = _.first(_.values(manifest))
+    @homepage = latest?.repository?.web ? latest?.repository?.url
     version = {}
     for [number, date] in _.pairs(latest.time)
       @add_version(version, number, new Date(date))
@@ -132,7 +134,7 @@ class PackageStatus
     ['Patch', 'lpad', 10]
   ]
 
-  constructor: (@name, local, @remote) ->
+  constructor: (@package, local, @remote) ->
     @local = @parse_version(local) if local
 
   @header: ->
@@ -144,9 +146,12 @@ class PackageStatus
 
   print: ->
     status = @diff @local, @remote
-    column_contents = [@name, _.values(@local).join('.')].concat(@status_format(status))
+    column_contents = [@package.name, _.values(@local).join('.')].concat(@status_format(status))
 
     console.log @colorize(@status_color(status))(@row_format column_contents)
+
+    if opts.homepage and @package.homepage
+      console.log @colorize(5)("  #{@package.homepage.replace(///^git://github.com///, 'https://github.com')}")
 
   diff: (version, available) ->
     # Returns an object with {major, minor, patch}. Each value is the newest
