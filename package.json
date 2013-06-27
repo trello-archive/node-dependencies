@@ -1,7 +1,7 @@
 {
   "name": "node-dependencies",
   "preferGlobal": true,
-  "version": "0.1.2",
+  "version": "0.2.0",
   "author": "Doug Patti <douglas.patti@gmail.com>",
   "description": "Check out-of-date dependencies for your Node.js app",
   "bin": {
