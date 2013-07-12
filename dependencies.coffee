@@ -45,7 +45,6 @@ class Dependencies
     # Print header
     PackageStatus.header()
     # Iterate over packages, collect data, and send to output
-    debugger
     async.waterfall [
       (next) ->
         async.map packages, (name, next) ->
