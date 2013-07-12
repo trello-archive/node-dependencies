@@ -5,9 +5,10 @@ npm   = require 'npm'
 path  = require 'path'
 
 optimist = require('optimist')
-            .describe('sort', 'Order to print (alpha, urgency)')
+            .describe('sort', 'Order to print (none, alpha, urgency)')
             .describe('homepage', 'Print the homepage url with each library')
             .describe('pre', 'Check packages with non-numeric patch values')
+            .default('sort', 'urgency')
             .alias('h', 'help')
 
 opts = optimist.argv
@@ -53,7 +54,7 @@ class Dependencies
               PackageStatus.error(name, err)
               return next()
             
-            if opts.sort
+            if opts.sort != 'none'
               next(null, status)
             else
               status?.print()
