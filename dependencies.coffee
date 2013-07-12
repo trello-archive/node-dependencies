@@ -150,7 +150,7 @@ class PackageStatus
 
   @error: (name, err) ->
     # Print standard error message for given package
-    # console.log(name, err.toString())
+    console.error(name, err.toString())
 
   print: ->
     status = @diff @local, @remote
