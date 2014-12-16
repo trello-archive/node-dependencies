@@ -1,3 +1,5 @@
+**Note: You probably just want [`npm outdated`](https://docs.npmjs.com/cli/outdated)**
+
 # Node Dependencies
 
 Check out-of-date dependencies for your Node.js app
